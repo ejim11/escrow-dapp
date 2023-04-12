@@ -1,13 +1,58 @@
-body {
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+html {
+  box-sizing: border-box;
+
+  /* 1rem = 14px */
+  font-size: 87.5%;
+}
+
+@media only screen and (max-width: 1500px) {
+  html {
+    /* 1rem = 10px */
+    font-size: 62.5%;
+  }
+}
+
+body {
+  font-family: "Noto Sans", sans-serif;
+}
+
+input {
+  font-size: 16px !important;
+}
+
+.scroll::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+.scroll::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+.scroll::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+.scroll::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.Toastify__toast--success,
+.Toastify__toast--error {
+  font-size: 1.5rem;
+  color: #2f80ed;
 }
