@@ -7,7 +7,7 @@ const ContractsList = () => {
   const contractsList = useSelector((state) => state.escrow.contractsList);
 
   return (
-    <div className="flex flex-col h-[35rem] sm:h-[40rem]  border shadow-sm rounded-lg border-color-border bg-color-white">
+    <div className="flex flex-col h-[35rem] sm:h-[40rem]  border shadow-sm rounded-lg border-color-border bg-color-white shadow-md">
       <p className="border-b border-color-border  font-semibold text-3xl p-6 text-color-dark-blue-2">
         Existing contracts
       </p>

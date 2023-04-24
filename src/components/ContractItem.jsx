@@ -42,7 +42,7 @@ const ContractItem = ({ contractItem, length, index }) => {
   ];
 
   const copyHandler = (address) => {
-    toastSuccess("contract address copied");
+    toastSuccess("Contract Address Copied");
     navigator.clipboard.writeText(address);
   };
 
@@ -73,18 +73,28 @@ const ContractItem = ({ contractItem, length, index }) => {
           href="https://mumbai.polygonscan.com/"
           target="_blank"
           rel="noopener noreferrer"
-          className="w-[45%] sm:w-[48%] py-3 bg-color-btn text-color-white text-[1.4rem] rounded-lg text-center font-semibold"
+          className="w-[45%] sm:w-[48%] py-3 bg-color-btn text-color-white text-[1.4rem] rounded-lg text-center font-semibold border border-color-btn hover:bg-color-white hover:text-color-btn transition-all duration-300 ease-in"
         >
           Visit Polygonscan
         </a>
-        <button
-          onClick={() => {
-            contractItem.handleApprove(signer);
-          }}
-          className="w-[45%] sm:w-[48%] py-3 bg-color-btn text-color-white text-[1.4rem] rounded-lg font-semibold"
-        >
-          {contractItem.approved ? "Approved" : "Approve"}
-        </button>
+        {!contractItem.approved ? (
+          <button
+            onClick={() => {
+              contractItem.handleApprove(signer);
+            }}
+            className={`w-[45%] sm:w-[48%] py-3  text-color-white text-[1.4rem] rounded-lg font-semibold  bg-color-btn border border-color-btn hover:bg-color-white hover:text-color-btn transition-all duration-300 ease-in
+          `}
+          >
+            Approve
+          </button>
+        ) : (
+          <div
+            className={`w-[45%] sm:w-[48%] py-3  text-color-white text-[1.4rem] rounded-lg font-semibold  bg-color-dark-blue-2  text-center
+          `}
+          >
+            Approved
+          </div>
+        )}
       </div>
     </div>
   );

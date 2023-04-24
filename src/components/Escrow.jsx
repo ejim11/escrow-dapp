@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import InputComponent from "./InputComponent";
 import { useForm } from "react-hook-form";
 import { inputValidators } from "./formValidation";
@@ -6,6 +6,7 @@ import ContractsList from "./ContractsList";
 import deploy from "./utils/deploy";
 import { useSelector, useDispatch } from "react-redux";
 import { escrowAction } from "../escrowSlice";
+import { toastSuccess } from "./utils/toastFunctions";
 
 export async function approve(escrowContract, signer) {
   const approveTxn = await escrowContract.connect(signer).approve();
@@ -38,6 +39,12 @@ const Escrow = () => {
     const escrowContract = await deploy(signer, arbiter, beneficiary, deposit);
     const receipt = await escrowContract.deploymentTransaction().wait();
 
+    escrowContract.on("Approved", () => {
+      console.log("approved");
+      dispatchFn(escrowAction.approveContract(receipt.blockNumber));
+      toastSuccess("Contract Approved");
+    });
+
     const escrow = {
       id: receipt.blockNumber,
       contractAddress: escrowContract.target,
@@ -46,10 +53,6 @@ const Escrow = () => {
       value: deposit,
       approved: false,
       handleApprove: async (arbiterSigner) => {
-        escrowContract.on("Approved", () => {
-          dispatchFn(escrowAction.approveContract(receipt.blockNumber));
-        });
-
         await approve(escrowContract, arbiterSigner);
       },
     };
@@ -92,7 +95,7 @@ const Escrow = () => {
         />
         <button
           type="submit"
-          className="text-center py-6 text-[1.6rem] text-color-white bg-color-btn w-full rounded-lg mt-4 font-semibold"
+          className="text-center py-6 text-[1.6rem] text-color-white bg-color-btn w-full rounded-lg mt-4 font-semibold border border-color-btn hover:bg-color-white hover:text-color-btn transition-all duration-300 ease-in"
         >
           Deploy
         </button>

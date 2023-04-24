@@ -16,7 +16,7 @@ function App() {
           Arbiter
         </h2>
         <button
-          className="border outline-none text-2xl shadow-sm border-color-border py-2 px-4 rounded-md font-semibold capitalize bg-color-btn text-color-white"
+          className="border outline-none text-2xl border-color-border py-2 px-4 rounded-md font-semibold capitalize bg-color-btn text-color-white"
           onClick={() => {
             connect(dispatchFn);
           }}

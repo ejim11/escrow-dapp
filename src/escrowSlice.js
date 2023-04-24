@@ -1,11 +1,13 @@
 import { createSlice, current } from "@reduxjs/toolkit";
 
+const storedContractList = localStorage.getItem("contractList");
+
 const escrowSlice = createSlice({
   name: "escrow",
   initialState: {
     signer: null,
     account: null,
-    contractsList: [],
+    contractsList: JSON.parse(storedContractList) || [],
   },
   reducers: {
     setSigner(state, action) {
@@ -16,6 +18,7 @@ const escrowSlice = createSlice({
     },
     addContractToList(state, action) {
       state.contractsList = [action.payload, ...state.contractsList];
+      localStorage.setItem("contractList", JSON.stringify(state.contractsList));
     },
     approveContract(state, action) {
       const contractIndex = state.contractsList.findIndex(
@@ -23,6 +26,8 @@ const escrowSlice = createSlice({
       );
 
       state.contractsList[contractIndex].approved = true;
+
+      localStorage.setItem("contractList", JSON.stringify(state.contractsList));
     },
   },
 });
